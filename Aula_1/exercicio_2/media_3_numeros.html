@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Média de 3 números</title>
+
+    <style>
+        input, button{
+            display: block;
+            margin: 10px;
+
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 id="title">Digite 3 números para calcular a média:</h1>
+
+    <label for="n1">Primeiro número:</label>
+    <input type="Number" id="n1">
+    
+    <label for="n2">Segundo número:</label>
+    <input type="Number" id="n2">
+
+    <label for="n3">Terceiro número:</label>
+    <input type="Number" id="n3">
+
+    <button onclick="media()">Calcular média</button>
+
+    <div id="resultado"></div>
+
+    </div>
+    <script>
+
+        function media(){
+            var n1 = parseInt(document.getElementById("n1").value)
+            var n2 = parseInt(document.getElementById("n2").value)
+            var n3 = parseInt(document.getElementById("n3").value)
+
+            var media = (n1 + n2 + n3) / 3
+
+            document.getElementById("resultado").innerHTML = "Resultado: " + media
+
+        }
+
+    </script>
+</body>
+</html>
