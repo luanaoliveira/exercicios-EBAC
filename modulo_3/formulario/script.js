@@ -25,9 +25,16 @@
 
             event.preventDefault()
 
-            let cepValido = this.value.match(/^[\d]5-[\d]3/) ? this.value.replace(/-/, "") : this.value
-    
-            if(cepValido != "" && cepValido.match(/[0-9]*/) && cepValido >= 0 && cepValido <= 10){
+            const regExCepTemIfem = /^[\d]{5}-[\d]{0,3}$/
+            const regExSoTemDigitosTam8 = /^[\d]{8}$/
+
+            function removerIfem(valor){
+                return regExCepTemIfem.test(valor) ? valor.replace(/-/, "") : valor
+            }
+
+            let cepSoComDigitos = removerIfem(this.value)
+            
+            if(regExSoTemDigitosTam8.test(cepSoComDigitos)){
                 document.querySelector('.mensagem').innerHTML = ""
                 this.classList.remove('erro')
                 this.parentNode.classList.remove('erro')
