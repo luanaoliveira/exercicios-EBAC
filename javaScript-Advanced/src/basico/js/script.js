@@ -1,51 +1,141 @@
-function calcularMedia( notas ) {
+// function calcularMedia( notas ) {
 
-    let soma = 0;
-    for( c = 0; c < notas.length; c++) {
-        soma += notas[c];
+//     let soma = 0;
+//     for( c = 0; c < notas.length; c++) {
+//         soma += notas[c];
+//     }
+
+//     media = soma / notas.length;
+
+//     return media;
+
+// }
+
+// let media; // escopo global
+
+// function aprovacao( notas ) {
+
+//     let media = calcularMedia( notas ); // escopo da função
+
+//     let condicao = media >= 8 ? "aprovado" : "reprovado";
+
+//     return 'Média: ' + media + ' - Resultado: ' + condicao;
+
+// }
+
+
+// Foi criado a classe Aprovacao que encapsula a media e o resultado da aprovação. As funções calcularMedia() e aprovacao() 
+//foram transformadas em métodos da classe.
+
+
+class Aprovacao {
+    constructor() {
+        this.notas = [];
     }
+  
+    calcularMedia() {
+        let soma = 0;
+    
+        for(let c = 0; c < this.notas.length; c++) {
+            soma += this.notas[c];
+        }
+  
+        const media = soma / this.notas.length;
+  
+        return media;
+    }
+      
+    resultado() {
+        let media = this.calcularMedia(); // escopo da função
+  
+        let condicao = media >= 8 ? "aprovado" : "reprovado";
+  
+        return 'Média: ' + media + ' - Resultado: ' + condicao;
+  
+    }
+  }
 
-    media = soma / notas.length;
+// function contagemRegressiva(numero){
 
-    return media;
+//     console.log(numero);  
+    
+//     let proximoNumero = numero - 1;
 
-}
+//     if(proximoNumero > 0)
+//         contagemRegressiva(proximoNumero);
 
-let media; // escopo global
+// }
 
-function aprovacao( notas ) {
+// contagemRegressiva(50);
 
-    let media = calcularMedia( notas ); // escopo da função
-
-    let condicao = media >= 8 ? "aprovado" : "reprovado";
-
-    return 'Média: ' + media + ' - Resultado: ' + condicao;
-
-}
+// Na função de contagemRegressiva() foi transformada em uma classe também de mesmo nome, o parâmetro número foi instanciado no construtor
 
 
 // Função Recursivas
 
-function contagemRegressiva(numero){
+class ContagemRegressiva {
+    constructor(numero) {
+        this.numero = numero;
+    }
 
-    console.log(numero);  
+    iniciarContagem() {
+        this.contador(this.numero) 
+    }
+
+    contador(numero) {
+        console.log(numero);  
     
-    let proximoNumero = numero - 1;
+        let proximoNumero = numero - 1;
 
-    if(proximoNumero > 0)
-        contagemRegressiva(proximoNumero);
-
+        if(proximoNumero > 0){
+            this.contador(proximoNumero);
+        }
+    }
 }
 
-// contagemRegressiva(50);
+// /* 
+//  * Formulário envio de dados para cálculo da média 
+//  */
+// const formulario1 = document.getElementById('formulario-01');
 
-/* 
- * Formulário envio de dados para cálculo da média 
- */
+// if(formulario1)
+//     formulario1.addEventListener('submit', function( evento ){
+
+//         evento.preventDefault();
+//         evento.stopPropagation();
+
+//         if( this.getAttribute('class').match(/erro/) ) {
+//             return false;
+//         }
+        
+//         let dados = new FormData(this);
+
+//         let notas = [];
+
+//         for(let key of dados.keys()) {
+
+//             let numero = dados.get(key).match(/\d*/) ? Number(dados.get(key)) : 0; // é um número
+
+//             if(!isNaN(numero)) {
+//                 notas.push(numero);
+//             }
+
+//         }
+
+//         console.log(notas);
+
+//         texto = aprovacao(notas)
+
+//         document.getElementById('resultado').innerHTML = texto;
+
+//     });
+
+//
+
 const formulario1 = document.getElementById('formulario-01');
 
 if(formulario1)
-    formulario1.addEventListener('submit', function( evento ){
+    formulario1.addEventListener('submit', function( evento ){ // A arrow Function não é recomendável aqui, pois 'this' não está vinculado ao formulário, mas ao escopo pai.
 
         evento.preventDefault();
         evento.stopPropagation();
@@ -56,21 +146,21 @@ if(formulario1)
         
         let dados = new FormData(this);
 
-        let notas = [];
+        const aprovacao = new Aprovacao();
 
         for(let key of dados.keys()) {
 
             let numero = dados.get(key).match(/\d*/) ? Number(dados.get(key)) : 0; // é um número
 
             if(!isNaN(numero)) {
-                notas.push(numero);
+                aprovacao.notas.push(numero);
             }
 
         }
 
-        console.log(notas);
+        console.log(aprovacao.notas);
 
-        texto = aprovacao(notas)
+        texto = aprovacao.resultado(aprovacao.notas)
 
         document.getElementById('resultado').innerHTML = texto;
 
@@ -79,7 +169,7 @@ if(formulario1)
 
 function validaCampo(elemento){
 
-    elemento.addEventListener('focusout', function(event) {
+    elemento.addEventListener('focusout', function( event) { // A arrow Function não é recomendável aqui, pois 'this' não está vinculado ao elemento, mas ao escopo pai.
 
         event.preventDefault();
 
@@ -100,7 +190,7 @@ function validaCampo(elemento){
 
 function validaCampoNumerico(elemento){
 
-    elemento.addEventListener('focusout', function(event) {
+    elemento.addEventListener('focusout', function(event) { // A arrow Function não é recomendável aqui, pois 'this' não está vinculado ao elemento, mas ao escopo pai.
 
         event.preventDefault();
 
@@ -124,7 +214,7 @@ function validaCampoNumerico(elemento){
 
 function validaEmail(elemento){
 
-    elemento.addEventListener('focusout', function(event) {
+    elemento.addEventListener('focusout', function(event) { // A arrow Function não é recomendável aqui, pois 'this' não está vinculado ao elemento, mas ao escopo pai.
 
         event.preventDefault();
 
@@ -139,9 +229,7 @@ function validaEmail(elemento){
             this.parentNode.classList.add('erro');
             return false;
         }
-
     });
-
 }
 
 
@@ -160,4 +248,3 @@ for( let emFoco of camposNumericos) {
 for( let emFoco of camposEmail) {
     validaEmail(emFoco);
 }
-

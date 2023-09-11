@@ -1,5 +1,6 @@
+// A classe Cachorro foi separada da classe Animal para melhor reutilização da mesma.
 
-class Animal {
+export class Animal {
 
     constructor(especie){
         this.especie = especie
@@ -18,14 +19,3 @@ class Animal {
     }
 
 }
-
-export default class Cachorro extends Animal{
-    falar(){
-        console.log(this.especie + ' fala au au au')
-    }
-
-    comer(){
-        console.log(this.especie + ' come ração ')
-    }
-}
-
