@@ -9,7 +9,7 @@ function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [data, setData] = useState([]);
-  const [ages, setAges] = useState([]); // Novo estado para armazenar as idades
+  const [ages, setAges] = useState([]);
   const inputEl = useRef(null);
 
   const handleClick = () => {
